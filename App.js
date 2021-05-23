@@ -1,21 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import store from './src/redux/Store';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './src/page/Home';
+import Register from './src/page/Register';
+import Login from './src/page/Login';
+import Laporan from './src/page/Laporan';
+import Map from './src/page/Map';
+import History from './src/page/History';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Stack = createStackNavigator();
+
+class App extends Component {
+  
+  render() {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="login" component={Login}/>
+            <Stack.Screen name="registrasi" component={Register}/>
+            <Stack.Screen name="home" component={Home}/>
+            <Stack.Screen name="laporan" component={Laporan}/>
+            <Stack.Screen name="map" component={Map}/>
+            <Stack.Screen name="history" component={History}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
